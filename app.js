@@ -9,6 +9,10 @@ app.use(function(req, res, next){
   next();
 });
 
+app.get('/', function(){
+  res.
+});
+
 app.use(function(req, res){
   console.error("Main error handling reached.");
   req.status(500).send("Internal Server error");
