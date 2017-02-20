@@ -26,6 +26,13 @@ module.exports = {
             _.filter(collection, query)
           );
         })
+      },
+      findById: function(_id){
+        return new Promise(function(success, error){
+          promiseTimeout(success,
+            _.find(collection, convertOid({_id}))
+          );
+        })
       }
     }
 

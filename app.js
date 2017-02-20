@@ -22,14 +22,33 @@ app.get('/users', function(req, res){
     })
 });
 
-app.get('/users/:id', function(req, res){
-  User.find({_id: req.params.id})
-    .then(data => res.status(200).send(data));
-})
+app.get('/users/some', function(req, res){
 
-app.use(function(req, res){
-  console.error("Main error handling reached.");
-  req.status(500).send("Internal Server error");
+  let getUserById = function(id){
+    return User.findById(id);
+  };
+
+  console.log("got here");
+
+  return Promise.all([
+    getUserById("58aa328cfc13ae658d000064")
+    ,getUserById("58aa328cfc13ae658d000065")
+    ,getUserById("58aa328cfc13ae658d000066")
+  ])
+    .then(data => {
+      console.log("all data", data);
+      res.status(200).send(data)
+    });
+});
+
+app.get('/users/:id', function(req, res){
+  User.findById(req.params.id)
+    .then(data => res.status(200).send(data));
+});
+
+app.use(function(req, res, next, error){
+  console.error("Main error handling reached.", error);
+  res.status(500).send("Internal Server error");
 });
 
 module.exports = app;

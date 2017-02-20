@@ -4,6 +4,8 @@ let http = require('http');
 let server = http.createServer();
 let app = require('./app');
 
+Promise = require('bluebird');
+
 server.on('request', app);
 
 server.listen(4040, function(){
