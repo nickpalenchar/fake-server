@@ -25,7 +25,7 @@ app.get('/users', function(req, res){
 app.get('/users/:id', function(req, res){
   User.find({_id: req.params.id})
     .then(data => res.status(200).send(data));
-})
+});
 
 app.use(function(req, res){
   console.error("Main error handling reached.");
